@@ -1,50 +1,19 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { useForm } from "react-hook-form";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { actions } from "./index";
+
+import "./App.css";
+import LoginForm from "./components/LoginForm";
+import FriendList from "./components/FriendList";
 
 function App() {
-  const { register, handleSubmit, errors, reset } = useForm();
-  const newState = useSelector((state) => state);
-  console.log(newState);
-  const onSubmit = (values) => {
-    console.log(values);
-    dispatch({ type: actions.SET_USER, payload: values.username });
-
-    // axios.post(`http://localhost:5000/api/login`, values).then((response) => {
-    //   console.log(response);
-    //   reset();
-    // });
-  };
-  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  console.log(state);
   return (
     <div className="App">
       <header className="App-header">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="name">
-            <input type="text" id="name" name="username" ref={register()} />
-          </label>
-          <label htmlFor="password">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              ref={register()}
-            />
-          </label>
-          <button>Log In</button>
-        </form>
-        <button
-          onClick={() => dispatch({ type: actions.SET_USER, payload: "Steve" })}
-        >
-          Update
-        </button>
-        <button onClick={() => dispatch({ type: actions.LOGGEDIN })}>
-          Update
-        </button>
+        <h1>FriendList.io</h1>
+        <LoginForm>Login</LoginForm>
+        <FriendList />
       </header>
     </div>
   );
