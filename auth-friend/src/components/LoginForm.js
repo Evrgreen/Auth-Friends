@@ -1,16 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { loggingIn } from "../actions/action_creators/actions";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const { register, handleSubmit, errors, reset } = useForm();
-
+  console.log(props);
   const onSubmit = (values) => {
     console.log(values);
-
-    // axios.post(`http://localhost:5000/api/login`, values).then((response) => {
-    //   console.log(response);
-    //   reset();
-    // });
+    const results = loggingIn(values);
+    if (results) {
+      props.history.push("/protected");
+    }
   };
 
   return (
